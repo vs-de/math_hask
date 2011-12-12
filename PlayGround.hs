@@ -8,8 +8,6 @@ import List
 import Char
 import Random
 
-show32 num = showIntAtBase 32 (\n -> if (n<10) then chr(0x30+n) else chr(ord('A')+n-10)) num ""
-
 goat_game = 
     randomRIO (1,3) >>= --should be clear
         (\w -> putStr "Choose a Gate: " >>

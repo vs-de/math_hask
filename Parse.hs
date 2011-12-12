@@ -66,7 +66,19 @@ ruby_lang = emptyDef {
 data Rule = Rule (String, String)
   deriving (Show)
 
-rule = char '<' >> many1 letter >>= (\t1 -> skipMany space >> char ',' >> skipMany space >> many1 letter >>= (\t2 -> return (Rule (t1,t2))))
+rule =  skipMany space >> char '<' >> 
+	skipMany space >> many1 letter >>= 
+	(\t1 -> 
+		skipMany space >> char ',' >> skipMany space >> many1 letter >>= 
+		(\t2 -> 
+			skipMany space >> char '>' >> return (Rule (t1,t2))
+		)
+	)
+
+rules = sepEndBy rule space
+
+--runs, but doesn't work for obvious reason
+--rules = rule >>= (\r -> (rules >>= (return.(r:))))
 
 f_syms = letter
 

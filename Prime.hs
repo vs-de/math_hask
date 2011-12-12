@@ -528,15 +528,14 @@ prime_exps n    =       pair_scanl (\a b c d ->
 --so, if you're interested only in the snd part of [(,)], "uncurry const" is your friend...
 --
 --YO! Here is my prime factorization algo :)
-prime_facs n    =       fst $ head $ dropWhile (uncurry (\_->(<n))) $ pair_scanl (\a b a' b' ->
+
+prime_facs n  | is_prime n    = [(n,1)]
+              | otherwise     = fst $ head $ dropWhile (uncurry (\_->(<n))) $ pair_scanl (\a b a' b' ->
                                 (a++a',b*b')
                         ) ([],1) $
                         uncurry zip $ dup (\lst0 lst1 -> 
                                 (map (\a -> [a]) lst0, map (uncurry (\p e -> p^e)) lst1)
                         ) $ (.) (filter (uncurry (\_->(>0)))) prime_facs' n
---little more faster facs
-fpf' n  | is_prime n    = [(n,1)]
-        | otherwise     = prime_facs n
 
 --the above construnct has a big speed penalty at the moment, but we'll see...
 
@@ -623,7 +622,16 @@ build_matrix size n =
     in
         map ((fac_vec base).(+(-n)).(^2)) cands
 
--- this was a bit shitty ... ;)
+-- this was quite shitty ... ;)
+
+--
+-- konsi session
+
+--  let pairs = perm_pairs (take 8 $ base_elems base 87463)
+--  let pairs' = zip ((transpose pairs) !! 0) ((transpose pairs) !! 1)
+--  map (\(a,b) -> let y = ((floor.sqrt.fromInteger) b) in gcd (y-a) n) $ filter (\(a,b) -> is_square b) $ map (\(a,b) -> ((a*b `mod` n),(a^2-n)*(b^2-n))) pairs'
+--
+--
 
 -- ok, just a simple square mod trial here:
 -- this is the beginning of the optimization fun.

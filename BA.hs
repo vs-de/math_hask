@@ -1,8 +1,10 @@
 module BA where -- Binary Analysis
 
+--import Random.Mersenne
 import StdLib
 import qualified Data.ByteString as BS
 import qualified GHC.Word as W
+import MTGen
 import Bits --hiding rotate
 import List
 

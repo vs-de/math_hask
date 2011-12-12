@@ -9,7 +9,6 @@ module StdLib where
 import Ratio
 import Numeric
 import List
-import BaseConst
 --import Data.Map (Map)
 import qualified Data.Map as Map
 --import Prime (pf_inv)
@@ -19,8 +18,19 @@ import Control.Concurrent
 import qualified Data.ByteString as BS
 import Char
 
+-- own libs
+import BaseConst
+import Visual
+
 apply f v = f v
 
+has_all_criteria thing = and . map (\f -> f thing)
+
+std_base_func n = if (n<10) then chr(0x30+n) else chr(ord('A')+n-10)
+baseShow b num = showIntAtBase b std_base_func num ""
+show32 num = baseShow 32 num
+show30 num = baseShow 30 num
+show24 num = baseShow 24 num
 
 --argh, have to zero-pad values
 
@@ -168,7 +178,17 @@ repf n f = f.(repf (n-1) f)
 --i found it, it's iterate but has no count param, so in some cases this even fits better
 --iterate gives complete result list
 ----to comment my comment again, iterate is simply more general
+------ to comment my comment of the comment again, there is a need for a
+-- special iterate, not just increasing the apply of f()
+-- if the function is monadic we want the real output of the former apply
 
+-- this should be similar to the default definition: iter f a = [f a] ++ iter f (f a)
+-- same behaviour here: iter f a = (\fa -> [fa] ++ iter f fa) $ f a
+
+-- DAMN, also THIS doesn't stop the lazy evaluation! ???
+-- i'm out of ideas. is it because of recursion?
+-- seems to be when f is monadic
+iter f a = (\x -> [x] ++ iter f x) $! (f a)
 
 --simple count, could be implemented by just:
 --length $ elemIndices x lst

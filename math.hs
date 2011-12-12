@@ -13,6 +13,7 @@ import Const
 import Ratio
 import List
 import Graph
+import Visual
 
 --comment this out, if you don't have the libs
 import Tool
