@@ -1,8 +1,8 @@
 module Graph where
 
 import StdLib
-import Ratio
-import List
+import Data.Ratio
+import Data.List
 
 dot = '#'
 

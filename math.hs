@@ -10,8 +10,8 @@ import Polynom
 import Numeric
 import StdLib
 import Const
-import Ratio
-import List
+import Data.Ratio
+import Data.List
 import Graph
 import Visual
 

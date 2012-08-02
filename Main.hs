@@ -19,5 +19,9 @@ import Prime
 import System.IO
 --main = hSetBuffering stdout NoBuffering >> (print $ keep_map (toInteger.p) $ takeWhile (<(2^24)) $ iterate (+(2^16)) (2^16))
 
-main = hSetBuffering stdout NoBuffering >> (print $ fpf 503468707164728717)
+--main = hSetBuffering stdout NoBuffering >> (print $ fpf 503468707164728717)
+
+main = hSetBuffering stdout NoBuffering >>
+      
+      --print $ fpf 34567
 

@@ -1,8 +1,8 @@
 module Polynom where
 
 import StdLib
-import Ratio
-import List
+import Data.Ratio
+import Data.List
 
 
 --polynom detection

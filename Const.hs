@@ -3,8 +3,8 @@ module Const where
 
 import StdLib
 import Prime
-import List
-import Ratio
+import Data.List
+import Data.Ratio
 
 
 {-

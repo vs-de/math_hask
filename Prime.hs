@@ -1,8 +1,8 @@
 module Prime where
 
 import StdLib
-import Ratio
-import List
+import Data.Ratio
+import Data.List
 import PrimeConst
 
 -- [OLD STUFF] --
@@ -107,7 +107,7 @@ take' n lst     | n <= bi       = take (fI n) lst
         where   bi = biggest_int
                 fI = fromInteger
 
-prime_cycle n = (.) (`take'` prime_cycle' n) p_tk n
+prime_cycle n = (.) (`take'` prime_cycle' n) p_tk (n-1)
 prime_candidates n = scanl (+) (p n) $ cycle cyc_
         where cyc_ = pcyc n --prime_cycle n
 
@@ -492,6 +492,13 @@ mod_solve [] = 0
 mod_solve lst = head $ (foldl1 (.) $ map (\(a,b) -> filter (\n -> mod n b == a)) (tail lst)) $
                 map (\n -> (fst (head lst))+n*(snd (head lst))) [1..]
 
+
+--moebius
+--
+-- uses fpf
+moeb 1 = 1
+moeb n  | (any ((>1) . snd) . fpf) n = 0
+        | otherwise = ((-1)^) $ length $ fpf n
 
 --nat nums as list of prime exponents
 

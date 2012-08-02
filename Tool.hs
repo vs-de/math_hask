@@ -3,7 +3,7 @@ module Tool where
 --this needs more special libs
 
 import Math.OEIS
-import List
+import Data.List
 
 
 oeis_lookup seq= putStrLn $ maybe "NOT FOUND" id $ lookupSequence seq >>=

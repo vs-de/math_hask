@@ -6,9 +6,9 @@ module StdLib where
  -
  -}
 
-import Ratio
+import Data.Ratio
 import Numeric
-import List
+import Data.List as List
 --import Data.Map (Map)
 import qualified Data.Map as Map
 --import Prime (pf_inv)
@@ -16,7 +16,7 @@ import qualified Data.Map as Map
 import Data.Bits((.|.),(.&.), shiftR)
 import Control.Concurrent
 import qualified Data.ByteString as BS
-import Char
+import Data.Char
 
 -- own libs
 import BaseConst
@@ -609,7 +609,7 @@ choose n k = div (product $ takeWhile (>mk) [n,(pred n)..] ) $ fac (n-mk)
 permutations ([]) = [[]]
 permutations list =
   concatMap (\e ->
-    map (\lst -> (fst e):lst) $ permutations $ tail $ rotate list (snd e)
+    map (\lst -> (fst e):lst) $ StdLib.permutations $ tail $ rotate list (snd e)
   ) $ zip list [0..]
 
 --perm_apply perm = 

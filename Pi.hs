@@ -1,7 +1,7 @@
 module Pi where
 
 import StdLib
-import Ratio
+import Data.Ratio
 
 
 -- BBP --
